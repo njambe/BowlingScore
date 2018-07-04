@@ -1,5 +1,11 @@
 package be.njambe.BowlingScore.Exception;
 
+/**
+ * Custom Exception, raised when the Bowling rules are not followed
+ *
+ * @author Nathan Jambe
+ *
+ */
 public class BowlingLogicException extends Exception {
 
 	/**

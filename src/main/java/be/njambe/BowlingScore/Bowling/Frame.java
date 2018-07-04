@@ -4,6 +4,14 @@ import java.util.Arrays;
 
 import be.njambe.BowlingScore.Exception.BowlingLogicException;
 
+/**
+ * This class represents a Bowling frame. A frame contains one, two or three
+ * pinfalls (result of launching a ball down the lane). It can be a strike (10
+ * pins felt on first launch), a spare (10 pins felt using 2 launches), or none.
+ *
+ * @author Nathan Jambe
+ *
+ */
 public class Frame implements IFrame {
 
 	private int pinfalls[] = { 0, 0, 0 };
@@ -87,14 +95,17 @@ public class Frame implements IFrame {
 	}
 
 	private void validate(int launches, int... pinfalls) throws BowlingLogicException {
+		// At least one pinfall value
 		if (launches == 0) {
 			throw new BowlingLogicException("At least one pitfall is required");
 		}
 
+		// Maximum 3 values on the last frame
 		if (isLastFrameOfGame() && launches > 3) {
 			throw new BowlingLogicException("Maximum 3 pinfalls within the tenth frame");
 		}
 
+		// Maximum 2 values on the 9 first frames
 		if (!isLastFrameOfGame() && launches > 2) {
 			throw new BowlingLogicException("Maximum 2 pinfalls within a frame");
 		}
@@ -104,18 +115,31 @@ public class Frame implements IFrame {
 			if (pf < 0 || pf > 10)
 				throw new BowlingLogicException("Pinfalls must be between 0 and 10");
 
+		// If only 1 launch, no other check required
 		if (launches == 1)
 			return;
 
-		if (isLastFrameOfGame() && isStrike(pinfalls.length, pinfalls))
+		// If strike on the last frame, the next value can be anything
+		if (isLastFrameOfGame() && launches == 2 && pinfalls[0] == 10)
 			return;
 
+		// If 2 strikes on the last frame, last value can be anything
+		if (isLastFrameOfGame() && launches == 3 && pinfalls[0] == 10 && pinfalls[1] == 10)
+			return;
+
+		// If strike on the last frame, last 2 values must be below than 10
+		if (isLastFrameOfGame() && launches == 3 && pinfalls[0] == 10 && pinfalls[1] + pinfalls[2] <= 10)
+			return;
+
+		// Strike ends the frame, when not on the last frame of the game
 		if (!isLastFrameOfGame() && isStrike(pinfalls.length, pinfalls) && launches > 1)
 			throw new BowlingLogicException("Strike ends the frame");
 
+		// Maximum 10 pins per regular frame
 		if (pinfalls.length >= 2 && pinfalls[0] + pinfalls[1] > 10)
 			throw new BowlingLogicException("Not possible to fall more than 10 pins within a frame");
 
+		// Third launch on tenth frame only possible when done strike or spare
 		if (isLastFrameOfGame() && !isStrike(pinfalls.length, pinfalls) && !isSpare(pinfalls.length, pinfalls)
 				&& launches == 3)
 			throw new BowlingLogicException("Third launch only when possible");

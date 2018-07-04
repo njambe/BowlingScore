@@ -2,6 +2,12 @@ package be.njambe.BowlingScore.Bowling;
 
 import be.njambe.BowlingScore.Exception.BowlingLogicException;
 
+/**
+ * Interface for a Bowling game
+ *
+ * @author Nathan Jambe
+ *
+ */
 public interface IGame {
 
 	/**

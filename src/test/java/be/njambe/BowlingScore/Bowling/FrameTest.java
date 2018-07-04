@@ -127,6 +127,7 @@ public class FrameTest {
 		testValidate__InvalidParametersHelper("Not possible to fall more than 10 pins within a frame", false, 9, 9);
 		testValidate__InvalidParametersHelper("Not possible to fall more than 10 pins within a frame", false, 9, 2);
 		testValidate__InvalidParametersHelper("Not possible to fall more than 10 pins within a frame", false, 1, 10);
+		testValidate__InvalidParametersHelper("Not possible to fall more than 10 pins within a frame", true, 10, 6, 6);
 		testValidate__InvalidParametersHelper("Strike ends the frame", false, 10, 0);
 		testValidate__InvalidParametersHelper("Strike ends the frame", false, 10, 5);
 		testValidate__InvalidParametersHelper("Strike ends the frame", false, 10, 10);

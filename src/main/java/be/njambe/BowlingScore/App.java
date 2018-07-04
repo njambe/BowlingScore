@@ -3,6 +3,13 @@ package be.njambe.BowlingScore;
 import be.njambe.BowlingScore.Bowling.Game;
 import be.njambe.BowlingScore.Exception.BowlingLogicException;
 
+/**
+ * A runnable application that calculates the score of a single-player Bowling
+ * game
+ *
+ * @author Nathan Jambe
+ *
+ */
 public class App {
 	public static void main(String[] args) {
 		App app = new App();
